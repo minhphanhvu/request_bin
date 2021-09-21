@@ -6,8 +6,11 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Server is listening on port 3001" })
+app.post("/*", (req, res) => {
+  console.log(req.params)
+  console.log(req.headers)
+  console.log(req.body)
+  res.json({ message: "This is a post request" })
 })
 
 app.listen(PORT, () => {
