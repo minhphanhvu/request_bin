@@ -1,0 +1,1 @@
+A simple app to generate end point URL where you can inspect HTTP requests.
