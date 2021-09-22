@@ -1,12 +1,20 @@
 // server/index.js
 
-const express = require("express");
+const express = require('express');
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost:27017/request_bin`);
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+app.use(bodyParser.json())
 
-app.get("/*", (req, res) => {
+require('../routes/binRoutes.js')(app)
+
+app.get(`/*`, (req, res) => {
   console.log(req.params)
   console.log(req.headers)
   console.log(req.body)
@@ -14,7 +22,7 @@ app.get("/*", (req, res) => {
   res.json({ message: "This is a get request" })
 })
 
-app.post("/*", (req, res) => {
+app.post(`/*`, (req, res) => {
   console.log(req.params)
   console.log(req.headers)
   console.log(req.body)
