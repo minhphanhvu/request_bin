@@ -1,9 +1,10 @@
-// server/index.js
-
 const express = require('express');
+const app = express();
+require('express-async-errors');
 // utils
 const config = require('./utils/config')
 const logger = require('./utils/logger')
+const middleware = require('./utils/middleware')
 // controllers
 const binsRouter = require('./controllers/binRoutes')
 
@@ -19,9 +20,9 @@ mongoose.connect(config.MONGODB_URI || `mongodb://localhost:27017/request_bin`)
           logger.error('error connected to MongoDB', error.message)
         })
 
-const app = express();
 app.use(express.json())
 
+// main routes
 app.use(`/api`, binsRouter)
 // app.get(`/*`, (req, res) => {
 //   console.log(req.params)
@@ -38,5 +39,9 @@ app.use(`/api`, binsRouter)
 //   console.log("This is a post request")
 //   res.json({ message: "This is a post request" })
 // })
+
+// middleware and utils
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
 module.exports = app
