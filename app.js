@@ -27,7 +27,6 @@ app.use((req, res, next) => {
   // process raw request here
   next()
 })
-app.use(express.json())
 
 // main routes
 app.use(`/api`, binsRouter)
