@@ -7,6 +7,7 @@ const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
 // controllers
 const binsRouter = require('./controllers/binRoutes')
+const urlsRouter = require('./controllers/urlsRoutes')
 
 logger.info('Connecting to local mongodb: ', config.MONGODB_URI)
 
@@ -21,25 +22,16 @@ mongoose.connect(config.MONGODB_URI || `mongodb://localhost:27017/request_bin`, 
   logger.error('error connected to MongoDB', error.message)
 })
 
+app.use((req, res, next) => {
+  console.log(req)
+  // process raw request here
+  next()
+})
 app.use(express.json())
 
 // main routes
 app.use(`/api`, binsRouter)
-// app.get(`/*`, (req, res) => {
-//   console.log(req.params)
-//   console.log(req.headers)
-//   console.log(req.body)
-//   console.log("This is a get request")
-//   res.json({ message: "This is a get request" })
-// })
-
-// app.post(`/*`, (req, res) => {
-//   console.log(req.params)
-//   console.log(req.headers)
-//   console.log(req.body)
-//   console.log("This is a post request")
-//   res.json({ message: "This is a post request" })
-// })
+app.use(`/`, urlsRouter)
 
 // middleware and utils
 app.use(middleware.unknownEndpoint)
