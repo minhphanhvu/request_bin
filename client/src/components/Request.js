@@ -36,9 +36,13 @@ const Request = ({requests}) => {
                   )
                 })}
               </div>
-              <div className="info" id="raw-body">
+              <div className="info">
                 <h5 className="title">RAW-BODY</h5>
-                {r.rawBody}
+                {r.rawBody ? 
+                  <pre className="body prettyprint" id="raw-body">{r.rawBody.replace(/\s+/g, '')}</pre>
+                  :
+                  ''
+                }
               </div>
             </div>)
           })}

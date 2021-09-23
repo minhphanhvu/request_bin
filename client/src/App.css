@@ -57,4 +57,9 @@
 .info {
   margin: 0 auto;
   width: 800px;
+  max-width: 800px;
+}
+
+#raw-body {
+  font-size: 0.8em;
 }
