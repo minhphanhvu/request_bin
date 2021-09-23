@@ -2,6 +2,17 @@ const Bin = require('../models/bin')
 const binHelper = require('../utils/bin_helper')
 const binsRouter = require('express').Router()
 
+binsRouter.get(`/:binUrl/inspect`, async (req, res) => {
+  const bin = await Bin.findOne({url: req.params.binUrl})
+  console.log(bin.requests)
+
+  if (bin) {
+    res.status(200).send({ requests: bin.requests })
+  } else {
+    res.status(404).send({ error: 'Bin not found' })
+  }
+})
+
 binsRouter.post(`/generate`, async (req, res) => {
   const bins = await Bin.find({})
   const randomUrl = binHelper.generateUrl(bins)
