@@ -14,10 +14,9 @@ const Request = ({requests}) => {
             return (
             <div className="request">
               <div className="info" id="query-params">
-                <h5 className="title">QUERY/PARAMS</h5>
-                {r.query || r.params ?
+                <h5 className="title">FORM/PARAMS</h5>
+                {r.params ?
                   <>
-                    <p>{JSON.stringify(r.query)}</p>
                     <p>{JSON.stringify(r.params)}</p>
                   </>
                   :

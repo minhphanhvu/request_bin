@@ -14,7 +14,7 @@ function App() {
     e.preventDefault()
     binService.getRequests(url)
       .then(requests => {
-        setRequests(requests)
+        setRequests(requests.sort((r1, r2) => r1.receivedAt > r2.receivedAt ? -1 : 1))
       })
   }
 
