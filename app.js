@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
 require('express-async-errors');
 // utils
 const config = require('./utils/config')
@@ -7,7 +8,6 @@ const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
 // controllers
 const binsRouter = require('./controllers/binRoutes')
-const urlsRouter = require('./controllers/urlsRoutes')
 
 logger.info('Connecting to local mongodb: ', config.MONGODB_URI)
 
@@ -22,15 +22,20 @@ mongoose.connect(config.MONGODB_URI || `mongodb://localhost:27017/request_bin`, 
   logger.error('error connected to MongoDB', error.message)
 })
 
-app.use((req, res, next) => {
-  console.log(req)
-  // process raw request here
-  next()
-})
+const rawBody = (req, res, buf, encoding) => {
+  if (buf && buf.length) {
+    req.rawBody = buf.toString(encoding || 'utf8')
+  }
+}
+
+const options = {
+  verify: rawBody
+}
+
+app.use(bodyParser.json(options)) // Can we parse this when it hits the binUrl route instead?
 
 // main routes
-app.use(`/api`, binsRouter)
-app.use(`/`, urlsRouter)
+app.use(`/bin`, binsRouter)
 
 // middleware and utils
 app.use(middleware.unknownEndpoint)

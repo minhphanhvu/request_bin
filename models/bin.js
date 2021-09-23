@@ -1,15 +1,12 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
+const { requestSchema } = require('./request')
+
 const binSchema = new mongoose.Schema({
   url: { type: String, unique: true, required: true },
-  requests: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Request'
-    }
-  ],
-  created_at: {type: Date, default: Date.now}
+  requests: [requestSchema],
+  createdAt: {type: Date, default: Date.now}
   },
 )
 

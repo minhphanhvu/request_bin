@@ -1,14 +1,13 @@
 const mongoose = require('mongoose')
 
 const requestSchema = new mongoose.Schema({
-  received_at: { type: Date, default: Date.now },
-  raw_request: { type: Object, required: true },
-  headers: { type: Object },
-  body: { type: Object },
-  bin: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Bin'
-  }
+  receivedAt: { type: Date, default: Date.now },
+  rawRequest: Object,
+  query: Object,
+  params: Object,
+  headers: Object,
+  rawBody: String,
+  ip: String,
 })
 
 requestSchema.set('toJSON', {
@@ -20,4 +19,8 @@ requestSchema.set('toJSON', {
 })
 
 const Request = mongoose.model('Request', requestSchema)
-module.exports = Request
+
+module.exports = {
+  Request,
+  requestSchema
+}
