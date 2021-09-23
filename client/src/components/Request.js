@@ -5,41 +5,45 @@ const Request = ({requests}) => {
     <>
       {requests.length === 0 ? 
         <>
-          There is no request made yet.
+          <p>Currently there is no request made yet to inspect.</p>
         </>
         :
-        <section id="bin-inspect">
-        {requests.map(r => {
-          return (
-          <>
-            <div id="query-params">
-              query/params
-              {r.query || r.params ?
-                <>
-                  <p>{JSON.stringify(r.query)}</p>
-                  <p>{JSON.stringify(r.params)}</p>
-                </>
-                :
-                <>
-                </>
-              }
-            </div>
-            <div id="headers">
-              {Object.keys(r.headers).map(key => {
-                return (
+        <div className="">
+          <section className="" id="bin-inspect">
+          {requests.map(r => {
+            return (
+            <div className="request">
+              <div className="info" id="query-params">
+                <h5 className="title">QUERY/PARAMS</h5>
+                {r.query || r.params ?
                   <>
-                    return <p><strong>{key}</strong>: {r.headers[key]}</p>
+                    <p>{JSON.stringify(r.query)}</p>
+                    <p>{JSON.stringify(r.params)}</p>
                   </>
-                )
-              })}
-            </div>
-            <div id="raw-body">
-              Raw-body
-              {r.rawBody}
-            </div>
-          </>)
-        })}
-      </section>
+                  :
+                  <>
+                  </>
+                }
+              </div>
+              <h5 className="title">HEADERS</h5>
+              <div className="info" id="headers">
+                {Object.keys(r.headers).map(key => {
+                  return (
+                    <>
+                      <p><strong>{key[0].toUpperCase() + key.slice(1)}</strong>: 
+                      {r.headers[key]}</p>
+                    </>
+                  )
+                })}
+              </div>
+              <div className="info" id="raw-body">
+                <h5 className="title">RAW-BODY</h5>
+                {r.rawBody}
+              </div>
+            </div>)
+          })}
+        </section>
+      </div>
       }
     </>
   )

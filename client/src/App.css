@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.request {
+  border: 2px solid #eeeeee;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+#headers {
+  align-items: left;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.title {
+  text-align: center;
+  color: #999999;
+}
+
+.info {
+  margin: 0 auto;
+  width: 800px;
+}
