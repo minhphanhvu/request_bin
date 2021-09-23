@@ -19,7 +19,7 @@ mongoose.connect(config.MONGODB_URI || `mongodb://localhost:27017/request_bin`, 
 }).then(() => {
   logger.info('connected to MongoDB')
 }).catch((err) => {
-  logger.error('error connected to MongoDB', error.message)
+  logger.error('error connected to MongoDB', err.message)
 })
 
 const rawBody = (req, res, buf, encoding) => {
