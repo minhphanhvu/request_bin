@@ -4,7 +4,6 @@ const binsRouter = require('express').Router()
 
 binsRouter.get(`/:binUrl/inspect`, async (req, res) => {
   const bin = await Bin.findOne({url: req.params.binUrl})
-  console.log(bin.requests)// remove this in production
 
   if (bin) {
     res.status(200).send({ requests: bin.requests })

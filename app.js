@@ -35,7 +35,7 @@ const options = {
 app.use(bodyParser.json(options)) // Can we parse this when it hits the binUrl route instead?
 
 // main routes
-app.use(`/bin`, binsRouter)
+app.use(`/`, binsRouter)
 
 // middleware and utils
 app.use(middleware.unknownEndpoint)
