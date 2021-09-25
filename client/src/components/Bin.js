@@ -1,16 +1,6 @@
 import React from 'react'
-import binService from '../services/bins'
 
-const Bin = ({currentBinUrl, setBin, retrieveRequests, ws}) => {
-  const createNewBin = (e) => {
-    e.preventDefault()
-    binService.createBin()
-      .then(returnedUrlObj => {
-        // Why cant I check connection here?
-        ws.send(JSON.stringify({'newUrl': returnedUrlObj.url}))
-        setBin(returnedUrlObj.url)
-      })
-  }
+const Bin = ({currentBinUrl, createNewBin, retrieveRequests}) => {
 
   return (
     <>

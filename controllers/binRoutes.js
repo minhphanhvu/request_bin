@@ -5,7 +5,7 @@ const binsRouter = require('express').Router()
 // websocket
 const WebSocket = require('ws')
 const WebSocketServer = WebSocket.Server
-const wss = new WebSocketServer({port: 8181})
+const wss = new WebSocketServer({port: 8181, path: "/ws"})
 const clients = {}
 
 wss.on('connection', function(ws) {
@@ -33,7 +33,7 @@ setInterval(() => {
       delete clients[url]
     }
   }
-}, 30000)
+}, 9000)
 
 binsRouter.get(`/:binUrl/inspect`, async (req, res) => {
   const bin = await Bin.findOne({url: req.params.binUrl})

@@ -8,7 +8,7 @@ import Request from './components/Request'
 
 // websocket
 let ws;
-ws = new WebSocket('ws://localhost:8181')
+ws = new WebSocket('ws://localhost:8181/ws')
 
 function App() {
   const [currentBinUrl, setBin] = useState('')
@@ -36,6 +36,15 @@ function App() {
     }
   }, [])
 
+  const createNewBin = (e) => {
+    e.preventDefault()
+    binService.createBin()
+      .then(returnedUrlObj => {
+        ws.send(JSON.stringify({'newUrl': returnedUrlObj.url}))
+        setBin(returnedUrlObj.url)
+      })
+  }
+
   const retrieveRequests = (e, url) => {
     e.preventDefault()
     binService.getRequests(url)
@@ -50,7 +59,7 @@ function App() {
       {requests.length !== 0 ?
         ''
         :
-        <Bin ws={ws} currentBinUrl={currentBinUrl} setBin={setBin} retrieveRequests={retrieveRequests} />
+        <Bin ws={ws} currentBinUrl={currentBinUrl} createNewBin={createNewBin} setBin={setBin} retrieveRequests={retrieveRequests} />
       }
       <Request requests={requests} binUrl={currentBinUrl} />
     </div>
