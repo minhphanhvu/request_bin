@@ -1,12 +1,17 @@
 import React from 'react'
 
-const Request = ({requests}) => {
+const Request = ({requests, binUrl}) => {
   return (
     <>
-      {requests.length === 0 ? 
+      {binUrl && requests.length === 0 ? 
         <>
-          <p>Currently there is no request made yet to inspect.</p>
+          <p>Currently there is no requests made yet.</p>
         </>
+        :
+        ''
+      }
+      {requests.length === 0 ? 
+        ''
         :
         <div className="">
           <section className="" id="bin-inspect">
@@ -29,8 +34,7 @@ const Request = ({requests}) => {
                 {Object.keys(r.headers).map(key => {
                   return (
                     <>
-                      <p><strong>{key[0].toUpperCase() + key.slice(1)}</strong>: 
-                      {r.headers[key]}</p>
+                      <p><strong>{key[0].toUpperCase() + key.slice(1)}</strong>: {r.headers[key]}</p>
                     </>
                   )
                 })}
