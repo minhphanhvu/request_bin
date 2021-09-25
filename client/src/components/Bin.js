@@ -1,11 +1,13 @@
 import React from 'react'
 import binService from '../services/bins'
 
-const Bin = ({currentBinUrl, setBin, retrieveRequests}) => {
+const Bin = ({currentBinUrl, setBin, retrieveRequests, ws}) => {
   const createNewBin = (e) => {
     e.preventDefault()
     binService.createBin()
       .then(returnedUrlObj => {
+        // Why cant I check connection here?
+        ws.send(JSON.stringify({'newUrl': returnedUrlObj.url}))
         setBin(returnedUrlObj.url)
       })
   }
@@ -20,7 +22,7 @@ const Bin = ({currentBinUrl, setBin, retrieveRequests}) => {
         <div>
           <p>Your current url: <strong>{'https://finnvu.com/bin/' + currentBinUrl}</strong></p>
           <p>
-            To inspect, click here: <button onClick={(e) => retrieveRequests(e, '/' + currentBinUrl)}>
+            Click here to manually update and inspect: <button onClick={(e) => retrieveRequests(e, '/' + currentBinUrl)}>
                                     inspect
                                     </button>
             <p>

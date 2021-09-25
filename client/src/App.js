@@ -6,6 +6,10 @@ import React, { useState, useEffect } from 'react'
 import Bin from './components/Bin'
 import Request from './components/Request'
 
+// websocket
+let ws;
+ws = new WebSocket('ws://localhost:8181')
+
 function App() {
   const [currentBinUrl, setBin] = useState('')
   const [requests, setRequests] = useState([])
@@ -13,12 +17,23 @@ function App() {
   const queryParams = new URLSearchParams(window.location.search);
   const binUrl = queryParams.get('bin')
 
+  ws.onmessage = function(e) {
+    const request = JSON.parse(e.data).request
+    const newRequests = requests.concat(request).sort((r1, r2) => r1.receivedAt < r2.receivedAt ? -1 : 1)
+    setRequests(newRequests)
+  }
+
   useEffect(() => {
-    binService.getRequests(binUrl)
-      .then((requests) => {
-        setRequests(requests.sort((r1, r2) => r1.receivedAt > r2.receivedAt ? -1 : 1))
-        setBin(binUrl)
-      })
+    if (binUrl) {
+      ws.onopen = function(e) { // check open connection before send
+        ws.send(JSON.stringify({'existingUrl': binUrl}))
+      }
+      binService.getRequests(binUrl)
+        .then((requests) => {
+          setRequests(requests.sort((r1, r2) => r1.receivedAt > r2.receivedAt ? -1 : 1))
+          setBin(binUrl)
+        })
+    }
   }, [])
 
   const retrieveRequests = (e, url) => {
@@ -35,7 +50,7 @@ function App() {
       {requests.length !== 0 ?
         ''
         :
-        <Bin currentBinUrl={currentBinUrl} setBin={setBin} retrieveRequests={retrieveRequests} />
+        <Bin ws={ws} currentBinUrl={currentBinUrl} setBin={setBin} retrieveRequests={retrieveRequests} />
       }
       <Request requests={requests} binUrl={currentBinUrl} />
     </div>
