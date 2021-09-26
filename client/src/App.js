@@ -10,6 +10,8 @@ import Request from './components/Request'
 let ws;
 ws = new WebSocket('ws://localhost:8181/ws')
 // change this to your domain name in production, e.x.: finnvu.com/ws
+// make sure to use wss secure connection -> 'wss://finnvu.com/ws'
+// tell nginx to direct traffic to an exposed port for websocket only
 
 function App() {
   const [currentBinUrl, setBin] = useState('')
