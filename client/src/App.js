@@ -40,7 +40,7 @@ function App() {
     e.preventDefault()
     binService.createBin()
       .then(returnedUrlObj => {
-        ws.send(JSON.stringify({'newUrl': returnedUrlObj.url}))
+        // ws.send(JSON.stringify({'newUrl': returnedUrlObj.url}))
         setBin(returnedUrlObj.url)
       })
   }

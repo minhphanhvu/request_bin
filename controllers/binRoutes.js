@@ -33,7 +33,7 @@ setInterval(() => {
       delete clients[url]
     }
   }
-}, 9000)
+}, 30000)
 
 binsRouter.get(`/:binUrl/inspect`, async (req, res) => {
   const bin = await Bin.findOne({url: req.params.binUrl})
