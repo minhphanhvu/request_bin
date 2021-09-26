@@ -61,7 +61,9 @@ binsRouter.all(`/:binUrl`, async (req, res) => {
 
   if (bin) {
     const request = binHelper.parseRequest(req)
-    clients[binUrl].send(JSON.stringify({request}))
+    if (clients[binUrl]) {
+      clients[binUrl].send(JSON.stringify({request}))
+    }
     bin.requests.push(request)
     await bin.save()
     res.json({ success: `Your bin Url currently is: ${req.params.binUrl}` })

@@ -9,6 +9,7 @@ import Request from './components/Request'
 // websocket
 let ws;
 ws = new WebSocket('ws://localhost:8181/ws')
+// change this to your domain name in production, e.x.: finnvu.com/ws
 
 function App() {
   const [currentBinUrl, setBin] = useState('')
@@ -40,7 +41,7 @@ function App() {
     e.preventDefault()
     binService.createBin()
       .then(returnedUrlObj => {
-        // ws.send(JSON.stringify({'newUrl': returnedUrlObj.url}))
+        ws.send(JSON.stringify({'newUrl': returnedUrlObj.url}))
         setBin(returnedUrlObj.url)
       })
   }
