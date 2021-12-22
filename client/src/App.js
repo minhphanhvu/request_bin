@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="text-3xl font-bold underline">Inspect HTTP Requests</header>
+      <header className="flex content-center justify-center p-4"><h1 className="text-9xl">Inspect HTTP Requests</h1></header>
       {requests.length !== 0 ?
         ''
         :

@@ -5,7 +5,7 @@ const Request = ({requests, binUrl}) => {
     <>
       {binUrl && requests.length === 0 ? 
         <>
-          <p>Currently there is no requests made yet.</p>
+          <p className="mt-5">Currently there is no requests made yet.</p>
         </>
         :
         ''
@@ -13,11 +13,11 @@ const Request = ({requests, binUrl}) => {
       {requests.length === 0 ? 
         ''
         :
-        <div className="">
-          <section className="" id="bin-inspect">
+        <div className="mt-5">
+          <section id="bin-inspect">
           {requests.map(r => {
             return (
-            <div className="request">
+            <div className="request flex-auto border-2 border-black-900 rounded-tr-md rounded-br-md mb-4">
               <div className="info" id="query-params">
                 <h5 className="title">FORM/PARAMS</h5>
                 {r.params ?
@@ -49,8 +49,8 @@ const Request = ({requests, binUrl}) => {
               </div>
             </div>)
           })}
-        </section>
-      </div>
+          </section>
+        </div>
       }
     </>
   )
