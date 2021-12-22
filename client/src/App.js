@@ -1,4 +1,5 @@
 import './App.css';
+import './styles/output.css'
 import binService from './services/bins'
 import React, { useState, useEffect } from 'react'
 
@@ -58,7 +59,7 @@ function App() {
 
   return (
     <div className="App">
-      <header>Inspect HTTP Requests</header>
+      <header className="text-3xl font-bold underline">Inspect HTTP Requests</header>
       {requests.length !== 0 ?
         ''
         :
