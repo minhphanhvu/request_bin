@@ -7,7 +7,7 @@ const Bin = ({currentBinUrl, createNewBin, retrieveRequests}) => {
     <section className="pt-5">
       { !currentBinUrl
         ? 
-        <div className="w-1">
+        <div>
         <p>
           RequestBin gives you a URL that will collect requests made to it and let you inspect them in a human-friendly way
         </p>
